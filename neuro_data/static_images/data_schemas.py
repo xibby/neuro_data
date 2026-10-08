@@ -11,11 +11,22 @@ from neuro_data import logger as log
 from neuro_data.utils.data import h5cached, SplineCurve, FilterMixin, fill_nans, NaNSpline
 from neuro_data.static_images import datasets
 
+#This is no longer where we tell datajoint to look for this directory.
+# dj.config['stores'] = dict(
+#   **dj.config.setdefault('stores', {}),
+#   data=dict(
+#         protocol='file', 
+#         location='/external'),
+# )
+
 dj.config['stores'] = dict(
-  **dj.config.setdefault('stores', {}),
-  data=dict(
-        protocol='file', 
-        location='/external'),
+    **dj.config.setdefault('stores', {}),
+    external=dict(
+        protocol='file',
+        location='/mnt/dj-stor01'),  # Absolute path on the server
+    data=dict(
+        protocol='file',
+        location='/mnt/dj-stor01'),
 )
 
 experiment = dj.create_virtual_module('experiment', 'pipeline_experiment')
