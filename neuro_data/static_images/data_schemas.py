@@ -7,6 +7,16 @@ import datajoint as dj
 import numpy as np
 import pandas as pd
 
+dj.config['stores'] = dict(
+    **dj.config.setdefault('stores', {}),
+    external=dict(
+        protocol='file',
+        location='/mnt/dj-stor01'),  # Absolute path on the server
+    data=dict(
+        protocol='file',
+        location='/mnt/dj-stor01'),
+)
+
 from neuro_data import logger as log
 from neuro_data.utils.data import h5cached, SplineCurve, FilterMixin, fill_nans, NaNSpline
 from neuro_data.static_images import datasets
@@ -19,15 +29,7 @@ from neuro_data.static_images import datasets
 #         location='/external'),
 # )
 
-dj.config['stores'] = dict(
-    **dj.config.setdefault('stores', {}),
-    external=dict(
-        protocol='file',
-        location='/mnt/dj-stor01'),  # Absolute path on the server
-    data=dict(
-        protocol='file',
-        location='/mnt/dj-stor01'),
-)
+
 
 experiment = dj.create_virtual_module('experiment', 'pipeline_experiment')
 reso = dj.create_virtual_module('reso', 'pipeline_reso')
