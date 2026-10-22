@@ -15,6 +15,9 @@ dj.config['stores'] = dict(
     data=dict(
         protocol='file',
         location='/mnt/dj-stor01'),
+    static=dict(
+        protocol='file',
+        location='/mnt/dj-stor01'),
 )
 
 from neuro_data import logger as log
